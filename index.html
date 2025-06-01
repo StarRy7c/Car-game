@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Car Game</title>
+  <style>
+    canvas { background: #ddd; display: block; margin: auto; }
+  </style>
+</head>
+<body>
+<canvas id="gameCanvas" width="400" height="600"></canvas>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let car = { x: 180, y: 500, width: 40, height: 80 };
+
+function drawCar() {
+  ctx.fillStyle = 'red';
+  ctx.fillRect(car.x, car.y, car.width, car.height);
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft' && car.x > 0) {
+    car.x -= 10;
+  } else if (e.key === 'ArrowRight' && car.x + car.width < canvas.width) {
+    car.x += 10;
+  }
+});
+
+function gameLoop() {
+  clearCanvas();
+  drawCar();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</script>
+</body>
+</html>
